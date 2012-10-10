@@ -66,8 +66,22 @@
 				);
 			}
 
-			$.webglmatrix.setMatrixUniforms();
-			webGLContext.drawArrays(_o.drawOptions.type, 0, _vB.numItems);
+			if (_o.drawOptions.callback === "drawElements")
+			{
+				webGLContext.bindBuffer(webGLContext.ELEMENT_ARRAY_BUFFER, _iB);
+				$.webglmatrix.setMatrixUniforms();
+				webGLContext.drawElements(
+					_o.drawOptions.type,
+					_iB.numItems,
+					webGLContext.UNSIGNED_SHORT,
+					0
+				);
+			}
+			else
+			{
+				$.webglmatrix.setMatrixUniforms();
+				webGLContext.drawArrays(_o.drawOptions.type, 0, _vB.numItems);
+			}
 
 			$.webglmatrix.pop();
 		}

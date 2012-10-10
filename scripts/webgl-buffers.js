@@ -43,6 +43,10 @@
 				{
 					_create_Float32Array_ARRAY_BUFFER(bufferKeys[b], _objectKeys[k], o['buffers'][bufferKeys[b]]);
 				}
+				else if (bufferKeys[b] == 'index')
+				{
+					_create_Uint16Array_ELEMENT_ARRAY_BUFFER(bufferKeys[b], _objectKeys[k], o['buffers'][bufferKeys[b]]);
+				}
 			}
 		}
 	}
@@ -63,7 +67,24 @@
 
 		buffers[bufferType][name] = _buffer;
 	}
-	
+
+	function _create_Uint16Array_ELEMENT_ARRAY_BUFFER(bufferType, name, buffer)
+	{
+		var _buffer = webGLContext.createBuffer();
+
+		webGLContext.bindBuffer(webGLContext.ELEMENT_ARRAY_BUFFER, _buffer);
+		webGLContext.bufferData(
+			webGLContext.ELEMENT_ARRAY_BUFFER,
+			new Uint16Array(buffer.data), 
+			webGLContext.STATIC_DRAW
+		);
+
+		_buffer.itemSize = buffer.itemSize;
+		_buffer.numItems = buffer.numItems;
+
+		buffers[bufferType][name] = _buffer;
+	}
+
 	$.extend({
 		webglbuffers: {
 			init: init,

@@ -3,7 +3,7 @@
 
 	function animate(object)
 	{
-		if (typeof object.animation.rotations !== "undefined")
+		if (typeof object.animation.rotation !== "undefined")
 		{
 			_rotate(object);
 		}
@@ -32,20 +32,20 @@
 
 		if (rotationLastTime > 0)
 		{
-			for (var i in object.animation.rotations)
+			for (var i in object.animation.rotation)
 			{
-				_r = (object.animation.rotations[i].deg * _elapsed) / 1000.0;
+				_r = (object.animation.rotation[i].deg * _elapsed) / 1000.0;
 	
-				object.animation.rotations[i].cur =
-					(object.animation.rotations[i].dir == "-")
-						? object.animation.rotations[i].cur - _r
-						: object.animation.rotations[i].cur + _r;
+				object.animation.rotation[i].cur =
+					(object.animation.rotation[i].dir == "-")
+						? object.animation.rotation[i].cur - _r
+						: object.animation.rotation[i].cur + _r;
 
 				// Actual action
 				mat4.rotate(
 					$.webglmatrix.getmvMatrix(),
-					$.webglhelpers.degToRad(object.animation.rotations[i].cur),
-					object.animation.rotations[i].vec
+					$.webglhelpers.degToRad(object.animation.rotation[i].cur),
+					object.animation.rotation[i].vec
 				);
 			}
 		}
